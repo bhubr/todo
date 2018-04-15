@@ -64,6 +64,7 @@ const newTaskHtml = /* @html */ `
   <div class="row">
     <div class="col-md-12">
 
+
       <form>
         <div class="form-group">
           <label for="input-task-title">Task title</label>
