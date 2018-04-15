@@ -1,15 +1,15 @@
 // app.js - Front-end app
 console.log('Front-end app running')
 
-const mainElement = document.getElementById('main')
-
-const homeHtml = /* @html */ `
+const headerHtml = /* @html */ `
   <div class="row">
     <div class="col-md-12">
       <h1 class="mt-5">Todo</h1>
     </div>
   </div>
+`
 
+const homeHtml = /* @html */ `
   <div class="row">
     <div class="col-md-12">
 
@@ -24,7 +24,7 @@ const homeHtml = /* @html */ `
             <td>Devenir maître du monde</td>
             <td>En cours</td>
             <td class="icons">
-              <a href="edit.html"><span class="icon-pencil text-primary"></span></a>
+              <a href="/edit"><span class="icon-pencil text-primary"></span></a>
               <span class="icon-bin text-danger"></span>
             </td>
           </tr>
@@ -55,19 +55,12 @@ const homeHtml = /* @html */ `
         </tbody>
       </table>
 
-      <a href="new.html"><button class="btn btn-primary">Ajouter une tâche</button></a>
+      <a href="/new"><button class="btn btn-primary">Ajouter une tâche</button></a>
 
     </div>
   </div>`
 
 const newTaskHtml = /* @html */ `
-  <div class="row">
-    <div class="col-md-12">
-      <h1 class="mt-5">Todo</h1>
-    </div>
-  </div>
-
-
   <div class="row">
     <div class="col-md-12">
 
@@ -83,13 +76,6 @@ const newTaskHtml = /* @html */ `
   </div>`
 
 const editTaskHtml = /* @html */ `
-  <div class="row">
-    <div class="col-md-12">
-      <h1 class="mt-5">Todo</h1>
-    </div>
-  </div>
-
-
   <div class="row">
     <div class="col-md-12">
 
@@ -110,4 +96,29 @@ const editTaskHtml = /* @html */ `
   </div>
 `
 
-mainElement.innerHTML = homeHtml
+const notFoundHtml = /* @html */ `
+  <img src="https://img.memecdn.com/morphius-404_o_1938383.webp" alt="Morpheus - not found" />
+`
+const mainElement = document.getElementById('main')
+
+const showHome = () => {
+  mainElement.innerHTML = headerHtml + homeHtml
+}
+
+const showNewTask = () => {
+  mainElement.innerHTML = headerHtml + newTaskHtml
+}
+
+const showEditTask = () => {
+  mainElement.innerHTML = headerHtml + editTaskHtml
+}
+
+const showNotFound = () => {
+  mainElement.innerHTML = headerHtml + notFoundHtml
+}
+
+page('/', showHome)
+page('/new', showNewTask)
+page('/edit', showEditTask)
+page('*', showNotFound)
+page()
