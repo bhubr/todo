@@ -25,14 +25,14 @@ const indexHtml = /* @html */ `
         <span class="text-muted">&copy; WCS Toulouse 2018</span>
       </div>
     </footer>
+    <script src=js/page.js></script>
     <script src=js/app.js></script>
   </body>
 </html>
 `
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.send(indexHtml)
 })
-
 
 app.listen(3000)
