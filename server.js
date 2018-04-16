@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const tasks = require('./tasks.json')
 
 app.use(express.static(__dirname))
 
@@ -30,6 +31,21 @@ const indexHtml = /* @html */ `
   </body>
 </html>
 `
+
+app.get('/tasks', (req, res) => {
+  res.json(tasks)
+})
+
+app.get('/tasks/:taskId', (req, res) => {
+  const taskId = Number(req.params.taskId)
+  const task = tasks.find(t => t.id === taskId)
+  if(task === undefined) {
+    return res.status(404).json({
+      error: `Task with id ${taskId} not found`
+    })
+  }
+  res.json(task)
+})
 
 app.get('*', (req, res) => {
   res.send(indexHtml)
