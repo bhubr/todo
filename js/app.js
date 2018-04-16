@@ -22,7 +22,7 @@ const buildTaskRowHtml = task => /* @html */ `
     <td>${task.title}</td>
     <td>${task.state}</td>
     <td class="icons">
-      <a href="/edit"><span class="icon-pencil text-primary"></span></a>
+      <a href="/edit/${task.id}"><span class="icon-pencil text-primary"></span></a>
       <span class="icon-bin text-danger"></span>
     </td>
   </tr>
@@ -96,7 +96,7 @@ const render = (subtitle, mainHtml) => {
 }
 
 const showHome = () => {
-  fetch('/tasks.json')
+  fetch('/tasks')
   .then(response => response.json())
   .then(tasks => render('Accueil', buildHomeHtml(tasks)))
 }
@@ -105,8 +105,12 @@ const showNewTask = () => {
   render('Nouvelle tâche', newTaskHtml)
 }
 
-const showEditTask = () => {
-  render('Editer tâche', editTaskHtml)
+const showEditTask = context => {
+  const taskId = context.params.taskId
+  fetch(`/tasks/${taskId}`)
+  .then(response => response.json())
+  .then(task => render(`Editer tâche #${task.id}`, editTaskHtml))
+
 }
 
 const showNotFound = () => {
@@ -115,6 +119,6 @@ const showNotFound = () => {
 
 page('/', showHome)
 page('/new', showNewTask)
-page('/edit', showEditTask)
+page('/edit/:taskId', showEditTask)
 page('*', showNotFound)
 page()
