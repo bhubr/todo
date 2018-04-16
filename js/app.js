@@ -1,6 +1,34 @@
 // app.js - Front-end app
 console.log('Front-end app running')
 
+const tasks = [
+  {
+    id: 1,
+    title: 'Devenir maître du monde',
+    state: 'En cours'
+  },
+  {
+    id: 2,
+    title: 'Ranger mon appart',
+    state: 'À faire'
+  },
+  {
+    id: 3,
+    title: 'Faire du sport',
+    state: 'À faire'
+  },
+  {
+    id: 4,
+    title: 'Manger des pommes',
+    state: 'Fait'
+  },
+  {
+    id: 5,
+    title: 'Dormir',
+    state: 'À faire'
+  }
+]
+
 const headerHtml = subtitle => /* @html */ `
   <div class="row">
     <div class="col-md-12">
@@ -9,7 +37,26 @@ const headerHtml = subtitle => /* @html */ `
   </div>
 `
 
-const homeHtml = /* @html */ `
+/**
+ * Structure of a task object fetched from DB:
+ * id
+ * title
+ * state
+ * Example: { id: 1, title: 'Faire la vaisselle', state: 'À faire'  }
+ */
+
+const buildTaskRowHtml = task => /* @html */ `
+  <tr>
+    <td>${task.title}</td>
+    <td>${task.state}</td>
+    <td class="icons">
+      <a href="/edit"><span class="icon-pencil text-primary"></span></a>
+      <span class="icon-bin text-danger"></span>
+    </td>
+  </tr>
+`
+
+const buildHomeHtml = todoList => /* @html */ `
   <div class="row">
     <div class="col-md-12">
 
@@ -20,38 +67,9 @@ const homeHtml = /* @html */ `
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Devenir maître du monde</td>
-            <td>En cours</td>
-            <td class="icons">
-              <a href="/edit"><span class="icon-pencil text-primary"></span></a>
-              <span class="icon-bin text-danger"></span>
-            </td>
-          </tr>
-          <tr>
-            <td>Ranger mon appart</td>
-            <td>A faire</td>
-            <td class="icons">
-              <span class="icon-pencil text-primary"></span>
-              <span class="icon-bin text-danger"></span>
-            </td>
-          </tr>
-          <tr>
-            <td>Faire du sport</td>
-            <td>A faire</td>
-            <td class="icons">
-              <span class="icon-pencil text-primary"></span>
-              <span class="icon-bin text-danger"></span>
-            </td>
-          </tr>
-          <tr>
-            <td>Manger des pommes</td>
-            <td>Fait</td>
-            <td class="icons">
-              <span class="icon-pencil text-primary"></span>
-              <span class="icon-bin text-danger"></span>
-            </td>
-          </tr>
+          ${
+            todoList.map(buildTaskRowHtml).join('')
+          }
         </tbody>
       </table>
 
@@ -106,7 +124,7 @@ const render = (subtitle, mainHtml) => {
 }
 
 const showHome = () => {
-  render('Accueil', homeHtml)
+  render('Accueil', buildHomeHtml(tasks))
 }
 
 const showNewTask = () => {
