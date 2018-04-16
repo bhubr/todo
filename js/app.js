@@ -101,20 +101,24 @@ const notFoundHtml = /* @html */ `
 `
 const mainElement = document.getElementById('main')
 
+const render = (subtitle, mainHtml) => {
+  mainElement.innerHTML = headerHtml(subtitle) + mainHtml
+}
+
 const showHome = () => {
-  mainElement.innerHTML = headerHtml('Accueil') + homeHtml
+  render('Accueil', homeHtml)
 }
 
 const showNewTask = () => {
-  mainElement.innerHTML = headerHtml('Nouvelle tâche') + newTaskHtml
+  render('Nouvelle tâche', newTaskHtml)
 }
 
 const showEditTask = () => {
-  mainElement.innerHTML = headerHtml('Editer tâche') + editTaskHtml
+  render('Editer tâche', editTaskHtml)
 }
 
 const showNotFound = () => {
-  mainElement.innerHTML = headerHtml('Erreur 404') + notFoundHtml
+  render('Erreur 404', notFoundHtml)
 }
 
 page('/', showHome)
