@@ -1,34 +1,6 @@
 // app.js - Front-end app
 console.log('Front-end app running')
 
-const tasks = [
-  {
-    id: 1,
-    title: 'Devenir maître du monde',
-    state: 'En cours'
-  },
-  {
-    id: 2,
-    title: 'Ranger mon appart',
-    state: 'À faire'
-  },
-  {
-    id: 3,
-    title: 'Faire du sport',
-    state: 'À faire'
-  },
-  {
-    id: 4,
-    title: 'Manger des pommes',
-    state: 'Fait'
-  },
-  {
-    id: 5,
-    title: 'Dormir',
-    state: 'À faire'
-  }
-]
-
 const headerHtml = subtitle => /* @html */ `
   <div class="row">
     <div class="col-md-12">
@@ -124,7 +96,9 @@ const render = (subtitle, mainHtml) => {
 }
 
 const showHome = () => {
-  render('Accueil', buildHomeHtml(tasks))
+  fetch('/tasks.json')
+  .then(response => response.json())
+  .then(tasks => render('Accueil', buildHomeHtml(tasks)))
 }
 
 const showNewTask = () => {
