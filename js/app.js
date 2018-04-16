@@ -1,10 +1,10 @@
 // app.js - Front-end app
 console.log('Front-end app running')
 
-const headerHtml = /* @html */ `
+const headerHtml = subtitle => /* @html */ `
   <div class="row">
     <div class="col-md-12">
-      <h1 class="mt-5">Todo</h1>
+      <h1 class="mt-5">Todo App &mdash; ${subtitle}</h1>
     </div>
   </div>
 `
@@ -64,7 +64,6 @@ const newTaskHtml = /* @html */ `
   <div class="row">
     <div class="col-md-12">
 
-
       <form>
         <div class="form-group">
           <label for="input-task-title">Task title</label>
@@ -102,20 +101,24 @@ const notFoundHtml = /* @html */ `
 `
 const mainElement = document.getElementById('main')
 
+const render = (subtitle, mainHtml) => {
+  mainElement.innerHTML = headerHtml(subtitle) + mainHtml
+}
+
 const showHome = () => {
-  mainElement.innerHTML = headerHtml + homeHtml
+  render('Accueil', homeHtml)
 }
 
 const showNewTask = () => {
-  mainElement.innerHTML = headerHtml + newTaskHtml
+  render('Nouvelle tâche', newTaskHtml)
 }
 
 const showEditTask = () => {
-  mainElement.innerHTML = headerHtml + editTaskHtml
+  render('Editer tâche', editTaskHtml)
 }
 
 const showNotFound = () => {
-  mainElement.innerHTML = headerHtml + notFoundHtml
+  render('Erreur 404', notFoundHtml)
 }
 
 page('/', showHome)
