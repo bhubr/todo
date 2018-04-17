@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const tasks = require('./tasks.json')
+const connection = require('./db')
 
 app.use(express.static(__dirname))
 
@@ -33,7 +34,15 @@ const indexHtml = /* @html */ `
 `
 
 app.get('/tasks', (req, res) => {
-  res.json(tasks)
+  connection.query('SELECT id, title, state FROM tasks', (error, tasks) => {
+    if(error) {
+      return res.status(500).json({
+        error: error.message
+      })
+    }
+
+    res.json(tasks)
+  })
 })
 
 app.get('/tasks/:taskId', (req, res) => {
