@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const tasks = require('./tasks.json')
 const connection = require('./db')
 
 app.use(express.static(__dirname))
