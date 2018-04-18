@@ -2,8 +2,10 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const connection = require('./db')
+const path = require('path')
 
-app.use(express.static(__dirname))
+const staticPath = path.normalize(__dirname + '/../public')
+app.use(express.static(staticPath))
 app.use(bodyParser.json())
 
 const indexHtml = /* @html */ `
