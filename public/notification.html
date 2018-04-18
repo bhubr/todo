@@ -24,16 +24,25 @@
   }
   </style>
   <body>
-    <div id="alert-wrapper">
-      <div class="alert alert-danger" role="alert">
-        A simple danger alert—check it out!
-      </div>
-    </div>
-    <button onclick="showAlert()">show alert</button>
+    <div id="alert-wrapper" class="alert" role="alert"></div>
+    <button onclick="showAlert(true, 'Vous n\'êtes plus le maillon faible !')">show alert</button>
     <script>
-      const showAlert = () => {
+      const showAlert = (isSuccess, text) => {
+        // Récupérer la div de l'alert
         const alertWrapper = document.getElementById('alert-wrapper')
+        // Calculer la classe Bootstrap à appliquer suivant que c'est une notification
+        // de succès ou non
+        const alertClass = isSuccess ? 'alert-success' : 'alert-danger'
+        // Supprimer les classes mises lors des appels précédents
+        alertWrapper.classList.remove('alert-success')
+        alertWrapper.classList.remove('alert-danger')
+        // Ajouter la classe calculée
+        alertWrapper.classList.add(alertClass)
+        // Définir le texte
+        alertWrapper.innerHTML = text
+        // Rendre visible
         alertWrapper.classList.add('visible')
+        // Après 5s, rendre invisible
         setTimeout(() => {
           alertWrapper.classList.remove('visible')
         }, 5000)
