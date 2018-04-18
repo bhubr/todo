@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Todo App</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/sticky-footer.css" rel="stylesheet">
+    <link href="css/icons.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <style>
+  #alert-wrapper {
+    position: fixed;
+    top: -200px;
+    right: 20px;
+    width: 350px;
+    transition: top 1s;
+  }
+  #alert-wrapper.visible {
+    top: 70px;
+  }
+  </style>
+  <body>
+    <div id="alert-wrapper">
+      <div class="alert alert-danger" role="alert">
+        A simple danger alert—check it out!
+      </div>
+    </div>
+    <button onclick="showAlert()">show alert</button>
+    <script>
+      const showAlert = () => {
+        const alertWrapper = document.getElementById('alert-wrapper')
+        alertWrapper.classList.add('visible')
+        setTimeout(() => {
+          alertWrapper.classList.remove('visible')
+        }, 5000)
+      }
+    </script>
+  </body>
+</html>
