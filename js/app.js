@@ -54,7 +54,7 @@ const newTaskHtml = /* @html */ `
   <div class="row">
     <div class="col-md-12">
 
-      <form>
+      <form id="new-task" action="/tasks">
         <div class="form-group">
           <label for="input-task-title">Task title</label>
           <input name="title" type="text" class="form-control" id="input-task-title" placeholder="Enter task title">
@@ -95,13 +95,43 @@ const render = (subtitle, mainHtml) => {
 }
 
 const showHome = () => {
+  // 1. Récupération des données depuis le serveur
   fetch('/tasks')
   .then(response => response.json())
-  .then(tasks => render('Accueil', buildHomeHtml(tasks)))
+  .then(tasks => {
+    // 2. Affichage
+    render('Accueil', buildHomeHtml(tasks))
+
+    // 3. Mise en place des gestionnaires d'évènements
+  })
 }
 
 const showNewTask = () => {
+  // 1. Affichage
   render('Nouvelle tâche', newTaskHtml)
+  // 2. Mise en place des gestionnaires d'évènements
+  const form = document.getElementById('new-task')
+  form.addEventListener('submit', event => {
+    // Empêcher le comportement par défaut qui est de sortir de l'app JS
+    event.preventDefault()
+
+    const inputTitleElem = document.getElementById('input-task-title')
+    const taskData = {
+      title: inputTitleElem.value
+    }
+    const taskDataJson = JSON.stringify(taskData)
+    fetch(form.action, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: taskDataJson
+    })
+    .then(response => {
+      console.log(response)
+    })
+  })
 }
 
 const showEditTask = context => {

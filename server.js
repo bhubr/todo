@@ -1,8 +1,10 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const app = express()
 const connection = require('./db')
 
 app.use(express.static(__dirname))
+app.use(bodyParser.json())
 
 const indexHtml = /* @html */ `
 <!DOCTYPE html>
@@ -41,6 +43,21 @@ app.get('/tasks', (req, res) => {
     }
 
     res.json(tasks)
+  })
+})
+
+app.post('/tasks', (req, res) => {
+  const title = req.body.title
+  const query = `INSERT INTO tasks(title, state) VALUES('${title}', 'todo')`
+  connection.query(query, (error, result) => {
+    if(error) {
+      return res.status(500).json({
+        error: error.message
+      })
+    }
+
+    res.json({ result: result })
+
   })
 })
 
