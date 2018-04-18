@@ -65,19 +65,18 @@ const newTaskHtml = /* @html */ `
     </div>
   </div>`
 
-const editTaskHtml = /* @html */ `
+const editTaskHtml = task => /* @html */ `
   <div class="row">
     <div class="col-md-12">
-
       <form>
         <div class="form-group">
-          <label for="input-task-title">Devenir maître du monde</label>
-          <input name="title" type="text" class="form-control" id="input-task-title" placeholder="Enter task title">
+          <label for="input-task-title">Intitulé</label>
+          <input name="title" type="text" class="form-control" id="input-task-title" placeholder="Enter task title" value="${task.title}">
         </div>
         <select name="state" class="form-control">
-          <option>&Agrave; faire</option>
-          <option selected>En cours</option>
-          <option>Fait</option>
+          <option value="todo">&Agrave; faire</option>
+          <option value="doing" selected>En cours</option>
+          <option valus="done">Fait</option>
         </select>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
@@ -109,7 +108,7 @@ const showEditTask = context => {
   const taskId = context.params.taskId
   fetch(`/tasks/${taskId}`)
   .then(response => response.json())
-  .then(task => render(`Editer tâche #${task.id}`, editTaskHtml))
+  .then(task => render(`Editer tâche #${task.id}`, editTaskHtml(task)))
 
 }
 
