@@ -24,6 +24,8 @@ const indexHtml = /* @html */ `
   </head>
   <body>
     <!-- Begin page content -->
+    <div id="alert-wrapper" class="alert" role="alert"></div>
+
     <main id="main" role="main" class="container"></main>
     <footer class="footer">
       <div class="container">
