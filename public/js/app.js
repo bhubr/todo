@@ -1,6 +1,27 @@
 // app.js - Front-end app
 console.log('Front-end app running')
 
+const showAlert = (isSuccess, text) => {
+  // Récupérer la div de l'alert
+  const alertWrapper = document.getElementById('alert-wrapper')
+  // Calculer la classe Bootstrap à appliquer suivant que c'est une notification
+  // de succès ou non
+  const alertClass = isSuccess ? 'alert-success' : 'alert-danger'
+  // Supprimer les classes mises lors des appels précédents
+  alertWrapper.classList.remove('alert-success')
+  alertWrapper.classList.remove('alert-danger')
+  // Ajouter la classe calculée
+  alertWrapper.classList.add(alertClass)
+  // Définir le texte
+  alertWrapper.innerHTML = text
+  // Rendre visible
+  alertWrapper.classList.add('visible')
+  // Après 5s, rendre invisible
+  setTimeout(() => {
+    alertWrapper.classList.remove('visible')
+  }, 5000)
+}
+
 const headerHtml = subtitle => /* @html */ `
   <div class="row">
     <div class="col-md-12">
@@ -129,7 +150,12 @@ const showNewTask = () => {
       body: taskDataJson
     })
     .then(response => {
-      console.log(response)
+      if(response.status < 400) {
+        showAlert(true, 'Tâche créée !')
+      }
+      else {
+        showAlert(false, 'Impossible de créer la tâche')
+      }
     })
   })
 }
