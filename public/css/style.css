@@ -1,3 +1,13 @@
 .icons span {
   padding-right: 10px;
 }
+#alert-wrapper {
+  position: fixed;
+  top: -200px;
+  right: 20px;
+  width: 350px;
+  transition: top 1s;
+}
+#alert-wrapper.visible {
+  top: 70px;
+}
