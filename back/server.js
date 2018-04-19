@@ -23,9 +23,9 @@ const indexHtml = /* @html */ `
     <link href="css/style.css" rel="stylesheet">
   </head>
   <body>
-    <!-- Begin page content -->
+    <!-- #alert-wrapper is where the JS app inserts notifications -->
     <div id="alert-wrapper" class="alert" role="alert"></div>
-
+    <!-- #main is where the JS app inserts HTML content -->
     <main id="main" role="main" class="container"></main>
     <footer class="footer">
       <div class="container">
