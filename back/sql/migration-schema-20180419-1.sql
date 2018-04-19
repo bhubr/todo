@@ -1,10 +1,4 @@
-create table if not exists tasks (
-  `id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `title` VARCHAR(255),
-  `state` ENUM('todo', 'doing', 'done'),
-  `userId` INTEGER NOT NULL
-);
-
+alter table tasks add column `userId` INTEGER NOT NULL;
 create table if not exists users (
   `id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `email` VARCHAR(128) NOT NULL,
