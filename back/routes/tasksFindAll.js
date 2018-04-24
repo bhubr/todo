@@ -1,3 +1,5 @@
+const connection = require('../db')
+
 const tasksFindAll = (req, res) => {
   connection.query('SELECT id, title, state FROM tasks', (error, tasks) => {
     if(error) {
