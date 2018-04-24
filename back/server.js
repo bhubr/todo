@@ -4,6 +4,8 @@ const app = express()
 const connection = require('./db')
 const path = require('path')
 
+const tasksFindAll = require('./routes/tasksFindAll')
+
 const staticPath = path.normalize(__dirname + '/../public')
 app.use(express.static(staticPath))
 app.use(bodyParser.json())
@@ -38,17 +40,7 @@ const indexHtml = /* @html */ `
 </html>
 `
 
-app.get('/tasks', (req, res) => {
-  connection.query('SELECT id, title, state FROM tasks', (error, tasks) => {
-    if(error) {
-      return res.status(500).json({
-        error: error.message
-      })
-    }
-
-    res.json(tasks)
-  })
-})
+app.get('/tasks', tasksFindAll)
 
 app.post('/tasks', (req, res) => {
   const title = req.body.title
